@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Apex Physis — Ngets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #000000;
+    --banner: #e5e2db;
+    --banner-text: #0a0a0a;
+    --text: #f2f0eb;
+    --text-dim: #98948a;
+    --line: #2b2b2b;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  *, *::before, *::after { box-sizing: inherit; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .display {
+    font-family: 'Oswald', 'Arial Narrow', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    margin: 0;
+  }
+  a { color: inherit; }
+  img { max-width: 100%; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  header {
+    padding-top: calc(28px + env(safe-area-inset-top, 0px));
+    padding-bottom: 28px;
+    text-align: center;
+  }
+  .brand {
+    font-family: 'Oswald', sans-serif; font-size: 1.3rem; font-weight: 700;
+    letter-spacing: 0.24em; text-transform: uppercase;
+  }
+  .navlinks {
+    margin-top: 18px;
+    display: flex; gap: 28px; justify-content: center;
+    font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dim);
+  }
+  .navlinks a:hover { color: var(--text); }
+  @media (max-width: 620px) { .navlinks { display: none; } }
+
+  .banner {
+    background: var(--banner);
+    color: var(--banner-text);
+    padding: 26px 0;
+  }
+  .banner .wrap {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px 24px;
+    font-family: 'Oswald', sans-serif; font-weight: 600; letter-spacing: 0.05em;
+    font-size: clamp(1rem, 3vw, 1.4rem); text-transform: uppercase;
+  }
+  @media (max-width: 560px) { .banner .wrap { justify-content: center; text-align: center; } }
+
+  .hero { padding: 9vh 0 8vh; text-align: center; }
+  .hero h1 {
+    font-size: clamp(2.4rem, 8.5vw, 4.6rem);
+    line-height: 1.02;
+    text-transform: uppercase;
+  }
+  .hero p.sub {
+    max-width: 480px; margin: 24px auto 0;
+    color: var(--text-dim); font-size: 1.02rem;
+  }
+  .cta-row { margin-top: 36px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 13px 28px; border-radius: 0;
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; border: 1px solid var(--text); transition: background 0.15s ease, color 0.15s ease;
+  }
+  .btn-primary { background: var(--text); color: #000; }
+  .btn-primary:hover { background: transparent; color: var(--text); }
+  .btn-ghost { color: var(--text); }
+  .btn-ghost:hover { background: var(--text); color: #000; }
+
+  section { padding: 68px 0; border-top: 1px solid var(--line); }
+  .section-head { margin-bottom: 40px; }
+  .section-head h2 { font-size: clamp(1.4rem, 3.6vw, 1.9rem); text-transform: uppercase; }
+  .section-head p { color: var(--text-dim); margin-top: 10px; font-size: 0.96rem; max-width: 520px; }
+
+  .list-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 56px; }
+  @media (max-width: 720px) { .list-grid { grid-template-columns: 1fr; } }
+  .list-block h3 {
+    font-size: 1.05rem; text-transform: uppercase; margin-bottom: 14px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--line);
+  }
+  .list-block ul { list-style: none; margin: 0; padding: 0; }
+  .list-block li {
+    padding: 7px 0; font-size: 0.92rem; color: var(--text-dim);
+    display: flex; gap: 10px;
+  }
+  .list-block li::before { content: ">"; color: var(--text); flex-shrink: 0; }
+
+  .about-inner { display: flex; gap: 36px; align-items: flex-start; flex-wrap: wrap; }
+  .about-badge {
+    width: 88px; height: 88px; border: 1px solid var(--text);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Oswald', sans-serif; font-size: 1.4rem; letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+  .about-text { max-width: 560px; color: var(--text-dim); font-size: 0.98rem; }
+  .about-text strong { color: var(--text); font-weight: 500; }
+
+  .band { text-align: center; }
+  .band h2 { font-size: clamp(1.7rem, 4.6vw, 2.3rem); text-transform: uppercase; margin-bottom: 14px; }
+  .band p { color: var(--text-dim); max-width: 440px; margin: 0 auto 30px; }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 30px 0 calc(30px + env(safe-area-inset-bottom, 0px));
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-dim);
+  }
+  footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <div class="brand">Apex Physis</div>
+  <div class="navlinks">
+    <a href="#programs">Programs</a>
+    <a href="#method">Method</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</header>
+
+<div class="banner">
+  <div class="wrap">
+    <span>Certified</span>
+    <span>Personal</span>
+    <span>Trainer</span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Built under pressure</h1>
+    <p class="sub">Personal training and nutrition coaching for people who want their body composition, strength, and performance handled with precision — based in Antananarivo, coaching online and in person.</p>
+    <div class="cta-row">
+      <a href="#" class="btn btn-primary">Message on Facebook</a>
+      <a href="#programs" class="btn btn-ghost">See programs</a>
+    </div>
+  </div>
+</section>
+
+<section id="programs">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Coaching programs</h2>
+      <p>Three focused tracks. Each one is built around your starting point, not a template.</p>
+    </div>
+    <div class="list-grid">
+      <div class="list-block">
+        <h3>Body Recomposition</h3>
+        <ul>
+          <li>Structured training and nutrition working together</li>
+          <li>Built to change how you look and perform</li>
+          <li>No guesswork on either side of the plan</li>
+        </ul>
+      </div>
+      <div class="list-block">
+        <h3>Sport Performance</h3>
+        <ul>
+          <li>Programming built around your sport's demands</li>
+          <li>Strength, power, and conditioning sequenced together</li>
+          <li>Built for competition, not just the gym</li>
+        </ul>
+      </div>
+      <div class="list-block">
+        <h3>Nutrition Planning</h3>
+        <ul>
+          <li>Macro and meal structures built around real food</li>
+          <li>Fit to your actual schedule</li>
+          <li>Adjusted as training and results change</li>
+        </ul>
+      </div>
+      <div class="list-block">
+        <h3>Who it's for</h3>
+        <ul>
+          <li>Beginners who want a real starting structure</li>
+          <li>Athletes preparing for a specific season or event</li>
+          <li>Anyone rebuilding consistency after time off</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="method">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>The method</h2>
+      <p>Coaching backed by certification and an ongoing study of how the body actually adapts — not a generic plan resold to every client.</p>
+    </div>
+    <div class="list-grid">
+      <div class="list-block">
+        <h3>Assessment</h3>
+        <ul>
+          <li>Training history, physiology, and goals reviewed first</li>
+          <li>Starting point set before anything is written</li>
+        </ul>
+      </div>
+      <div class="list-block">
+        <h3>Programming</h3>
+        <ul>
+          <li>Periodized training built around your response</li>
+          <li>Adjusted week to week, not fixed in advance</li>
+        </ul>
+      </div>
+      <div class="list-block">
+        <h3>Nutrition</h3>
+        <ul>
+          <li>Plans grounded in metabolic and endocrine fundamentals</li>
+          <li>Built around real food, not trend diets</li>
+        </ul>
+      </div>
+      <div class="list-block">
+        <h3>Check-ins</h3>
+        <ul>
+          <li>Regular review of progress and adherence</li>
+          <li>Plan adjusted around what's actually working</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>About the coach</h2>
+    </div>
+    <div class="about-inner">
+      <div class="about-badge">NG</div>
+      <div class="about-text">
+        <p><strong>Ngets</strong> is a certified personal trainer (Biofit Academy) based in Antananarivo, working across body recomposition, sport-specific performance, and nutrition planning. Coaching is built on a background that combines hands-on training experience with a closer study of the science behind it — training response, metabolism, and how the two are actually connected.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="band">
+  <div class="wrap">
+    <h2>Start your program</h2>
+    <p>Send a message to talk through your goals and where to start.</p>
+    <a href="#" class="btn btn-primary">Message on Facebook</a>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div>© 2026 Apex Physis</div>
+  <div><a href="#">Facebook</a></div>
+</footer>
+
+</body>
+</html>
